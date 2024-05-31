@@ -80,9 +80,9 @@ nginx_official_repo:
 
    {%- if grains.os not in ('Debian',) %}
        ## applies to Ubuntu and derivatives only #}
+{%- if from_ppa %}
 nginx_ppa_repo:
   pkgrepo:
-    {%- if from_ppa %}
     - managed
     {%- else %}
     - absent
@@ -98,9 +98,9 @@ nginx_ppa_repo:
       - pkg: nginx_install
     - watch_in:
       - pkg: nginx_install
-   {%- endif %}
+{%- endif %}
 
-  {%- if from_phusionpassenger %}
+{%- if from_phusionpassenger %}
 nginx_phusionpassenger_repo_keyring:
   file.managed:
     - name: /usr/share/keyrings/phusionpassenger-archive-keyring.gpg
