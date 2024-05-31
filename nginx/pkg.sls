@@ -7,17 +7,7 @@
 {%- from tplroot ~ "/map.jinja" import nginx, sls_block with context %}
 {%- from tplroot ~ "/libtofs.jinja" import files_switch with context %}
 
-{%- if nginx.install_from_repo %}
-  {% set from_official = true %}
-  {% set from_ppa = false %}
-  {% set from_phusionpassenger = false %}
-  {% set from_opensuse_devel = false %}
-{% else %}
-  {% set from_official = false %}
-  {% set from_ppa = false %}
-  {% set from_phusionpassenger = false %}
-  {% set from_opensuse_devel = false %}
-{%- endif %}
+{% set from_official = true %}
 
 {%- set resource_repo_managed = 'file' if grains.os_family == 'Debian' else 'pkgrepo' %}
 
@@ -33,8 +23,6 @@ nginx_install:
     - name: {{ nginx.lookup.package }}
     {% endif %}
 
-{% if grains.os_family == 'Debian' %}
-  {%- if from_official %}
 nginx_official_repo_keyring:
   file.managed:
     - name: {{ nginx.lookup.package_repo_keyring }}
@@ -61,5 +49,3 @@ nginx_official_repo:
       - pkg: nginx_install
     - watch_in:
       - pkg: nginx_install
-{%- endif %}
-{%- endif %}
