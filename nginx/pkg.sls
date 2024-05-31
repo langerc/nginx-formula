@@ -12,21 +12,6 @@
   {% set from_ppa = false %}
   {% set from_phusionpassenger = false %}
   {% set from_opensuse_devel = false %}
-{% elif nginx.install_from_ppa %}
-  {% set from_official = false %}
-  {% set from_ppa = true %}
-  {% set from_phusionpassenger = false %}
-  {% set from_opensuse_devel = false %}
-{% elif nginx.install_from_phusionpassenger %}
-  {% set from_official = false %}
-  {% set from_ppa = false %}
-  {% set from_phusionpassenger = true %}
-  {% set from_opensuse_devel = false %}
-{% elif nginx.install_from_opensuse_devel %}
-  {% set from_official = false %}
-  {% set from_ppa = false %}
-  {% set from_phusionpassenger = false %}
-  {% set from_opensuse_devel = true %}
 {% else %}
   {% set from_official = false %}
   {% set from_ppa = false %}
@@ -76,4 +61,5 @@ nginx_official_repo:
       - pkg: nginx_install
     - watch_in:
       - pkg: nginx_install
+{%- endif %}
 {%- endif %}
